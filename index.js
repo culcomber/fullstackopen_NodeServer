@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
+
 const requestLogger = (request, response, next) => { // 打印出发送到服务器的每个请求的信息
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
@@ -13,8 +15,10 @@ const unknownEndpoint = (request, response) => {
 }
 
 // 中间件函数的调用顺序是它们被 Express 服务器对象的 use 方法所使用的顺序
+app.use(cors())
 app.use(express.json()) // 将请求的 JSON 数据转化为 JavaScript 对象
 app.use(requestLogger)
+app.use(express.static('build')) // 每当express收到一个HTTP GET请求时，它将首先检查build目录中是否包含一个与请求地址相对应的文件。
 
 let notes = [
   {
