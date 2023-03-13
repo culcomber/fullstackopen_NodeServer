@@ -9,7 +9,6 @@
     "build:ui": "rm -rf build && cd ../notes-react-app/ && npm run build && cp -r build ../NodeServer",
     "deploy": "git push master",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
