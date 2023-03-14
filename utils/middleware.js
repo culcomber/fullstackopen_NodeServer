@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const logger = require('./logger')
 
 const requestLogger = (request, response, next) => {

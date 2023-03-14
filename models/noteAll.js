@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 const mongoose = require('mongoose')
 
 // 为 "true "时，Mongoose将确保只有在你的模式中指定的字段才会被保存到数据库中，而所有其他字段将不会被保存

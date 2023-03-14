@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const http = require('http')
 
 let notes = [
