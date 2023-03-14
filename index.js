@@ -3,8 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
-
-const Note = require('./models/note')
+const Note = require('./models/note') // 使用数据库模型
 
 const requestLogger = (request, response, next) => {
   // 打印出发送到服务器的每个请求的信息
@@ -58,15 +57,16 @@ app.use(express.static('build')) // 每当express收到一个HTTP GET请求时�
   },
 ];*/
 
-// request包含 HTTP 请求的所有信息，response定义如何对请求进行响应
-// app.get('/', (request, response) => {
-//   // Express 自动将 Content-Type 头的值设置为 text/html。响应的状态代码默认为 200
-//   response.send("<h1>Hello World!</h1>");
-// });
+/*request包含 HTTP 请求的所有信息，response定义如何对请求进行响应
+app.get('/', (request, response) => {
+  // Express 自动将 Content-Type 头的值设置为 text/html。响应的状态代码默认为 200
+  response.send("<h1>Hello World!</h1>");
+});*/
 
 app.get('/api/notes', (request, response) => {
   // Express 自动将 Content-Type 头设置为 application/json 的适当值
   // response.json(notes);
+
   Note.find({}).then((notes) => {
     response.json(notes)
   })
@@ -105,7 +105,7 @@ app.post('/api/notes', (request, response, next) => {
     .then((savedNote) => {
       response.json(savedNote)
     })
-    .catch((error) => next(error))
+    .catch((error) => next(error)) // 如果没有数或者数据不符合规则，交给下个中间件errorHandler处理
 })
 
 // Fetching a single resource
@@ -118,6 +118,7 @@ app.get('/api/notes/:id', (request, response, next) => {
     // 使用 status 方法来设置状态，并使用 end 方法来响应请求，而不发送任何数据。
     response.status(404).end();
   }*/
+
   Note.findById(request.params.id)
     .then((note) => {
       if (note) {
@@ -145,13 +146,12 @@ app.put('/api/notes/:id', (request, response, next) => {
 
 // Deleting resources
 app.delete('/api/notes/:id', (request, response, next) => {
-  // const id = Number(request.params.id)
-  // notes = notes.filter(note => note.id !== id)
-  // response.status(204).end()
+  /*const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+  response.status(204).end()*/
 
   Note.findByIdAndRemove(request.params.id)
-    // eslint-disable-next-line no-unused-vars
-    .then((result) => {
+    .then(() => {
       response.status(204).end()
     })
     .catch((error) => next(error))
@@ -161,7 +161,6 @@ app.use(unknownEndpoint) // 未定义路由
 app.use(errorHandler) // 错误处理
 
 // const PORT = 3001;
-// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001 //port 號會由 Heroku 給予，因此不再自行指定
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
