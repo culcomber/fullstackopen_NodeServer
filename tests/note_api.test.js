@@ -51,9 +51,9 @@ describe('when there is initially some notes saved', () => {
   // Jest默认的5000ms的测试超时，第三个参数将超时设置为100000毫秒。确保测试不会因为运行时间而失败
   test('notes are returned as json', async () => {
     await api
-        .get('/api/notes')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
+      .get('/api/notes')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
   }, 100000)
 
   test('all notes are returned', async () => {
@@ -70,7 +70,7 @@ describe('when there is initially some notes saved', () => {
     const contents = response.body.map(r => r.content)
 
     expect(contents).toContain(
-        'Browser can execute only Javascript'
+      'Browser can execute only Javascript'
     )
   })
 })
@@ -81,9 +81,9 @@ describe('viewing a specific note', () => {
     const notesAtStart = await helper.notesInDb()
     const noteToView = notesAtStart[0]
     const resultNote = await api
-        .get(`/api/notes/${noteToView.id}`)
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
+      .get(`/api/notes/${noteToView.id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
 
     const processedNoteToView = JSON.parse(JSON.stringify(noteToView))
     expect(resultNote.body).toEqual(processedNoteToView)
@@ -95,16 +95,16 @@ describe('viewing a specific note', () => {
     console.log(validNonexistingId)
 
     await api
-        .get(`/api/notes/${validNonexistingId}`)
-        .expect(404)
+      .get(`/api/notes/${validNonexistingId}`)
+      .expect(404)
   })
 
   test('fails with statuscode 400 id is invalid', async () => {
     const invalidId = '5a3d5da59070081a82a3445'
 
     await api
-        .get(`/api/notes/${invalidId}`)
-        .expect(400)
+      .get(`/api/notes/${invalidId}`)
+      .expect(400)
   })
 })
 
@@ -116,10 +116,10 @@ describe('addition of a new note', () => {
       important: true,
     }
     await api
-        .post('/api/notes')
-        .send(newNote)
-        .expect(201)
-        .expect('Content-Type', /application\/json/)
+      .post('/api/notes')
+      .send(newNote)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
 
     /*  const response = await api.get('/api/notes')
     const contents = response.body.map(r => r.content)
@@ -128,7 +128,7 @@ describe('addition of a new note', () => {
     expect(notesAtEnd).toHaveLength(helper.initialNotes.length + 1)
     const contents = notesAtEnd.map(n => n.content)
     expect(contents).toContain(
-        'async/await simplifies making async calls'
+      'async/await simplifies making async calls'
     )
   })
 
@@ -137,9 +137,9 @@ describe('addition of a new note', () => {
       important: true
     }
     await api
-        .post('/api/notes')
-        .send(newNote)
-        .expect(400)
+      .post('/api/notes')
+      .send(newNote)
+      .expect(400)
 
     /*  const response = await api.get('/api/notes')
     expect(response.body).toHaveLength(initialNotes.length)*/
@@ -154,12 +154,12 @@ describe('deletion of a note', () => {
     const notesAtStart = await helper.notesInDb() // 查询数据库全部笔记
     const noteToDelete = notesAtStart[0] // 删除第一个笔记
     await api
-        .delete(`/api/notes/${noteToDelete.id}`)
-        .expect(204)
+      .delete(`/api/notes/${noteToDelete.id}`)
+      .expect(204)
 
     const notesAtEnd = await helper.notesInDb() // 查询删除第一个笔记之后的全部笔记
     expect(notesAtEnd).toHaveLength(
-        helper.initialNotes.length - 1
+      helper.initialNotes.length - 1
     )
     const contents = notesAtEnd.map(r => r.content)
     expect(contents).not.toContain(noteToDelete.content)
