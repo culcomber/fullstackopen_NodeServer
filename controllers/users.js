@@ -4,7 +4,9 @@ const User = require('../models/user')
 
 // 查找用户
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
+  // const users = await User.find({})
+  // notes只返回content date 和 id
+  const users = await User.find({}).populate('notes', { content: 1, date: 1 })
   response.json(users)
 })
 

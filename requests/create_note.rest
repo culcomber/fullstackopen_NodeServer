@@ -2,6 +2,7 @@ POST http://localhost:3001/api/notes/ HTTP/1.1
 content-type: application/json
 
 {
-    "content": "VSCODE",
+    "content": "test note with userId",
     "important": true,
+    "userId": "6412baf2649b47e453ee46f1"
 }
