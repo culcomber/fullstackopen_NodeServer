@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 // }
 
 // const password = process.argv[2]
+// const url =
+//     'mongodb+srv://SamTL:opjnFhX4ADLR1Smr@cluster0.xauoi5d.mongodb.net/?retryWrites=true&w=majority'
 
 const url =
   'mongodb+srv://SamTL:ziDRCvn5PeiaiyG8@cluster0.uvewpvt.mongodb.net/?retryWrites=true&w=majority'
@@ -22,7 +24,7 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model('Note', noteSchema)
 
 const note = new Note({
-  content: 'CSS is hard',
+  content: 'CSS is hard1111',
   date: new Date(),
   important: true,
 })
