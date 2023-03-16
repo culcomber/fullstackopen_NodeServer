@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/notes/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QxMSIsImlkIjoiNjQxMmQ0ZjI0NDUyMWM0NDQwZDQxZTRhIiwiaWF0IjoxNjc4OTU2MTgxLCJleHAiOjE2Nzg5NTk3ODF9.MieKWuzPjFas0cqmXaTWr-aiDfl4nQWCfV-nNuXyvqs
+
+{
+    "content": "test note with token33",
+    "important": true,
+    "userId": "6412d4f244521c4440d41e4a"
+}
